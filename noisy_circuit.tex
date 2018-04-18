@@ -29,7 +29,7 @@
 \DeclareGraphicsExtensions{.pdf}
 
 \postertitle{Quantum simulation of partially distinguishable boson sampling}
-\posterauthors{Alexandra E. Moylett\textsuperscript{1,2,3,*}, and Peter S. Turner\textsuperscript{1}}
+\posterauthors{Alexandra E. Moylett\textsuperscript{1,2,3,*} and Peter S. Turner\textsuperscript{1}}
 \posteremail{\textsuperscript{*}alex.moylett@bristol.ac.uk}
 \posteraffils{\textsuperscript{1}Quantum Engineering Technology Labs, H. H. Wills Physics Laboratory and Department of Electrical \& Electronic Engineering, University of Bristol, BS8 1FD, United Kingdom\\\textsuperscript{2}Quantum Engineering Centre for Doctoral Training, H. H. Wills Physics Laboratory and Department of Electrical \& Electronic Engineering, University of Bristol, BS8 1FD, United Kingdom\\\textsuperscript{3}Heilbronn Institute for Mathematical Research, University of Bristol, BS8 1SN, United Kingdom}
 
@@ -45,7 +45,7 @@
   \begin{itemize}
   \item We provide an explicit polynomial time quantum circuit for Boson Sampling with photons of arbitrary distinguishability.
   
-  \item This is through reducing Boson Sampling to the problem of sampling from irreducible representations of the Unitary group [RSdG99].
+  \item This is through reducing Boson Sampling to the problem of sampling from irreducible representations of the Unitary group.
   
   \item This is solvable through known circuits for the Schur transform [BCH07].
   \end{itemize}
@@ -53,22 +53,23 @@
 
   \begin{block}{\Large 1. Boson Sampling}
   \begin{itemize}
-  \item Sampling from $n$ photons on an $m$-mode interferometer.
+  \item Sampling from $n$ indistinguishable single photons on an $m$-mode interferometer.
   \begin{center}
   \begin{figure}
-  \includegraphics[width=0.4\linewidth]{model}
-  \caption{\label{fig:bs} Boson Sampling model of quantum computation. Reproduced from [GMO+15]}
+  \includegraphics[width=0.4\linewidth]{model2}
+  \caption{\label{fig:bs} The Boson Sampling model.}
   \end{figure}
   \end{center}
   \item Efficient classical simulation would imply collapse of the polynomial hierarchy [AA11].
-  \item Though practical algorithms for up to 50 photons exist [NSC+17].
+  \item Practical algorithms for up to 50 photons exist [NSC+17].
+  \item Experimental issues such as loss and distinguishability need to be considered to reach a scale that outperforms classical computation
   \end{itemize}
   \end{block}
 
-  \begin{block}{\Large 2. Unitary group representations}
+  \begin{block}{\Large 2. Schur-Weyl duality}
   \begin{itemize}
-  \item The Hilbert space $(\mathbb{C}^{m})^{\otimes n}$ carries irreps of $\textrm{U}(m)$ and $\textrm{S}_n$.
-  \item An efficient quantum circuit, denoted $W$, allows up to map between this space and the irreps [BCH08].
+  \item The Hilbert space $(\mathbb{C}^{m})^{\otimes n}$ carries dual irreps of $\textrm{U}(m)$ and $\textrm{S}_n$.
+  \item An efficient quantum circuit, denoted $W$, allows us to map between the computational basis and the irrep basis [BCH08].
   
   $$W|\Psi\rangle = \sum_\lambda\sum_{q_{\lambda},p_{\lambda}}C^\lambda_{q_\lambda,p_\lambda}|\lambda\rangle|q_{\lambda}\rangle|p_\lambda\rangle$$
   
@@ -79,15 +80,15 @@
 
   \begin{block}{\Large 3. Quantum circuit for Boson Sampling}
   \begin{itemize}
-  \item Circuit works by creating a single particle representation of our occupation numbers through the methods in part 2.
-  \item Our interferometer $U$ can then be implemented by applying $U$ to each qudit.
+  \item Circuit works by creating a single particle representation in terms of qudits via the methods in part 2.
+  \item Interferometer $U$ can be implemented by applying $U$ to each qudit.
   \begin{center}
   \begin{figure}
   \includegraphics[width=\linewidth]{noiseless_circuit_irrep}
   \caption{\label{fig:noiseless-circuit} Circuit for Boson Sampling with indistinguishable photons. This circuit has accuracy $\delta + \epsilon$ due to approximating $U^{\otimes n}$ and $W$, and runs in polynomial time in terms of $n, m, \log\delta^{-1}$ and $\log\epsilon^{-1}$.}
   \end{figure}
   \end{center}
-  \item We can also see the same distribution if we remove the second $W$ circuit and just measure each qubit in the computational basis.
+  \item We also see essentially the same distribution if we remove the second $W$ circuit and measure each qudit in the computational basis.
   \end{itemize}
   \end{block}
   \end{column}
@@ -96,22 +97,24 @@
   
   \begin{block}{4. Boson Sampling with partially distinguishable photons}
   \begin{itemize}
-  \item For distinguishability, we introduce a second mode.
-  \item Occupation numbers map to the fully symmetric irrep of $\textrm{U}(m \times n)$.
-  \item Unitary-Unitary duality decomposes this into irreps of $\textrm{U}(m)\otimes \textrm{U}(n)$ [RCR12].
+  \item For distinguishability, we introduce a second set of $n$ modes.
+  \item We use `System' and `Label' modes to distinguish spatial and, for example, temporal modes.
+  \item Occupation numbers map to symmetric irrep of $\textrm{U}(m \times n)$.
+  \item This decomposes into irreps of $\textrm{U}(m)\times \textrm{U}(n)$ [RCR12].
   \begin{center}
   \begin{figure}
   \includegraphics[width=0.75\linewidth]{noisy_circuit_rep2}
   \caption{\label{fig:noisy-circuit} Circuit for Boson Sampling with photons of arbitrary distinguishability.}
   \end{figure}
   \end{center}
+  \item Distinguishability increases entanglement between System and Label registers, creating a more mixed state when the label is traced out.
   \end{itemize}
   \end{block}
   
   \begin{block}{\Large 5. Boson Sampling with loss}
   \begin{itemize}
   \item Distribution known for $n+k$ photons with $k$ lost [AB16].
-  \item This can be modelled by tracing out $k$ qudits.
+  \item This can be modelled by simply tracing out $k$ qudits.
   \begin{center}
   \begin{figure}
   \includegraphics[width=0.75\linewidth]{lost_circuit}
@@ -125,14 +128,14 @@
   \begin{block}{\Large 6. Other results and future work}
   \begin{itemize}
   \item Postselecting on $|\lambda_{\textrm{Sys}}\rangle = |(n)\rangle$ allows us to perform indistinguishable Boson Sampling.
-  \item Even small amounts of indistinguishability might be able to guarantee an entangled qudit state.
+  \item Even a small probability of indistinguishability can guarantee an entangled system state in the single particle picture.
   \end{itemize}
   \textbf{Questions}
   \begin{itemize}
   \item Can we learn how distinguishability affects complexity?
   \item Are there any applications which irrep sampling can be used for?
   \item What do more realistic distinguishability models look like?
-  \item Can we model lossy components?
+  \item Can this circuit simulate other models of loss?
   \end{itemize}
   \end{block}
 
@@ -144,8 +147,6 @@
 
   
   \noindent [BCH07] D. Bacon, I. L. Chuang and A. W. Harrow, Proc. SODA'07, 1235--1244 (2007)
-  
-  \noindent [GMO+15] B. T. Gard et al., From Atomic to Mesoscale: The Role of Quantum Coherence in Systems of Various Complexities, Chapter 8 (2015)
   
   \noindent [NSC+17] A. Neville et al., Nat. Phys. \textbf{13}, 1153–1157 (2017)
   
