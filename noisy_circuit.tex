@@ -81,14 +81,14 @@
   \begin{block}{\Large 3. Quantum circuit for Boson Sampling}
   \begin{itemize}
   \item Circuit works by creating a single particle representation in terms of qudits via the methods in part 2.
-  \item Interferometer $U$ can be implemented by applying $U$ to each qudit.
+  \item Interferometer $U$ can be implemented by applying $U^{\otimes n}$.
   \begin{center}
   \begin{figure}
   \includegraphics[width=\linewidth]{noiseless_circuit_irrep}
   \caption{\label{fig:noiseless-circuit} Circuit for Boson Sampling with indistinguishable photons. This circuit has accuracy $\delta + \epsilon$ due to approximating $U^{\otimes n}$ and $W$, and runs in polynomial time in terms of $n, m, \log\delta^{-1}$ and $\log\epsilon^{-1}$.}
   \end{figure}
   \end{center}
-  \item We also see essentially the same distribution if we remove the second $W$ circuit and measure each qudit in the computational basis.
+  \item We also see the same distribution if we remove the second $W$ circuit and measure each qudit in the computational basis.
   \end{itemize}
   \end{block}
   \end{column}
@@ -97,8 +97,7 @@
   
   \begin{block}{4. Boson Sampling with partially distinguishable photons}
   \begin{itemize}
-  \item For distinguishability, we introduce a second set of $n$ modes.
-  \item We use `System' and `Label' modes to distinguish spatial and, for example, temporal modes.
+  \item For distinguishability, we introduce a second set of $n$ modes `Label' modes as well as our $m$ `System' modes.
   \item Occupation numbers map to symmetric irrep of $\textrm{U}(m \times n)$.
   \item This decomposes into irreps of $\textrm{U}(m)\times \textrm{U}(n)$ [RCR12].
   \begin{center}
@@ -107,7 +106,7 @@
   \caption{\label{fig:noisy-circuit} Circuit for Boson Sampling with photons of arbitrary distinguishability.}
   \end{figure}
   \end{center}
-  \item Distinguishability increases entanglement between System and Label registers, creating a more mixed state when the label is traced out.
+  \item Distinguishability increases entanglement between System and Label registers, creating a more mixed state.
   \end{itemize}
   \end{block}
   
@@ -128,7 +127,7 @@
   \begin{block}{\Large 6. Other results and future work}
   \begin{itemize}
   \item Postselecting on $|\lambda_{\textrm{Sys}}\rangle = |(n)\rangle$ allows us to perform indistinguishable Boson Sampling.
-  \item Even a small probability of indistinguishability can guarantee an entangled system state in the single particle picture.
+  \item Small probability of indistinguishability guarantees entanglement.
   \end{itemize}
   \textbf{Questions}
   \begin{itemize}
